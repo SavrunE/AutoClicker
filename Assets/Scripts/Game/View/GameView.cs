@@ -5,6 +5,8 @@ public class GameView : MonoBehaviour
 {
 	[SerializeField] private TextMeshProUGUI points;
 	[SerializeField] private TextMeshProUGUI energy;
+	[SerializeField] private ClickEffect clickEffect;
+	[SerializeField] private Transform clickEffectParrent;
 	GamePresenter gamePresenter;
 	public void Init(GamePresenter gp)
 	{
@@ -14,8 +16,10 @@ public class GameView : MonoBehaviour
 	}
 
 	public void MainButtonClicked()
-    {
-        gamePresenter.OnMainButtonClicked();
+	{
+		int pointCounts = gamePresenter.OnMainButtonClicked();
+		ClickEffect effect = Instantiate(clickEffect.gameObject, clickEffectParrent).GetComponent<ClickEffect>();
+		effect.Init(pointCounts.ToString());
 	}
 
 	public void UpdatePoints(int pointsCount)
